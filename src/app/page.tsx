@@ -1,22 +1,28 @@
 'use client'
 
-import { useState } from 'react'
+import { store, getSrc, type Theme } from '@/lib/store'
 import Input from '@/ui/Input'
-import { VscEye, VscFile, VscGithub, VscStarFull } from 'react-icons/vsc'
 import ClickToCopy from '@/ui/ClickToCopy'
 import Link from 'next/link'
+import { bundledThemes } from 'shiki'
+import {
+	VscEye,
+	VscFileCode,
+	VscGithub,
+	VscRepo,
+	VscStarFull,
+	VscSymbolColor,
+} from 'react-icons/vsc'
 import { cn } from '@/lib/utils'
 
-const DEFAULT_PATH = 'src/app/globals.css'
-
 export default function Home() {
-	const [repo, setRepo] = useState('nuotsu/github-iframe')
-	const [path, setPath] = useState(DEFAULT_PATH)
+	const { repo, path, theme, setRepo, setPath, setTheme } = store()
+	const src = getSrc()
 
 	const code = [
 		`<iframe`,
-		`\tsrc="https://github-iframe.vercel.app/${repo}/${path}"`,
-		`\twidth="100%"`,
+		`\tsrc="${src}"`,
+		`\twidth="100%" height="400px"`,
 		`></iframe>`,
 	].join('\n')
 
@@ -43,7 +49,7 @@ export default function Home() {
 				<div className="grid gap-x-4 gap-y-2 md:grid-cols-2">
 					<Input
 						title="owner/repo"
-						icon={VscGithub}
+						icon={VscRepo}
 						defaultValue={repo}
 						onChange={(e) => setRepo(e.target.value)}
 						pattern=".+/.+"
@@ -51,10 +57,24 @@ export default function Home() {
 
 					<Input
 						title="path/to/file"
-						icon={VscFile}
+						icon={VscFileCode}
 						defaultValue={path}
 						onChange={(e) => setPath(e.target.value)}
 					/>
+
+					<Input icon={VscSymbolColor}>
+						<select
+							title="Theme"
+							className="input w-full"
+							defaultValue={theme}
+							onChange={(e) => setTheme(e.target.value as Theme)}
+						>
+							<option disabled>Select a theme</option>
+							{Object.entries(bundledThemes).map(([theme]) => (
+								<option key={theme}>{theme}</option>
+							))}
+						</select>
+					</Input>
 				</div>
 			</fieldset>
 
@@ -65,8 +85,17 @@ export default function Home() {
 					</code>
 				</pre>
 
-				<div className="flex flex-wrap justify-end gap-4">
-					<Link className="with-icon" href={`/${repo}/${path}`}>
+				<div className="mt-1 flex flex-wrap justify-end gap-x-4 max-md:flex-col">
+					<a
+						className="with-icon"
+						href={`https://github.com/${repo}/blob/main/${path}`}
+						target="_blank"
+					>
+						<VscGithub />
+						View Source
+					</a>
+
+					<Link className="with-icon" href={src}>
 						<VscEye />
 						Fullscreen Preview
 					</Link>

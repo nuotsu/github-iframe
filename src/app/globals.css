@@ -33,6 +33,16 @@
 }
 
 @layer components {
+	.input {
+		padding: 0.2em 0;
+		outline: none;
+		background: none;
+
+		@apply border-b invalid:!border-red-500 focus:border-current;
+	}
+}
+
+@layer utilities {
 	.with-icon {
 		display: inline-flex;
 		align-items: center;

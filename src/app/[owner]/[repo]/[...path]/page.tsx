@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Code from '@/ui/Code'
 import ClickToCopy from '@/ui/ClickToCopy'
 import { VscGithub } from 'react-icons/vsc'
+import { cn } from '@/lib/utils'
 
 const octokit = new Octokit({
 	auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN!,
@@ -10,14 +11,19 @@ const octokit = new Octokit({
 
 export default async function Page({
 	params,
+	searchParams,
 }: {
 	params: Promise<{
 		owner: string
 		repo: string
 		path?: string[]
 	}>
+	searchParams: Promise<{
+		theme?: string
+	}>
 }) {
 	const { owner, repo, path } = await params
+	const { theme } = await searchParams
 
 	const { data } = await octokit.rest.repos
 		.getContent({
@@ -35,9 +41,14 @@ export default async function Page({
 
 	return (
 		<>
-			<Code raw={raw} path={path} />
+			<Code raw={raw} path={path} theme={theme} />
 
-			<nav className="fixed right-2 top-1 flex text-xl text-white *:p-1 *:opacity-25 [&>:hover]:opacity-100">
+			<nav
+				className={cn(
+					'fixed right-2 top-1 flex text-lg *:p-1 *:opacity-25 [&>:hover]:opacity-100',
+					!theme?.includes('light') && 'text-white',
+				)}
+			>
 				<a
 					href={`https://github.com/${owner}/${repo}/blob/main/${path?.join('/')}`}
 					target="_blank"

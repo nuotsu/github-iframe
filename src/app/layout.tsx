@@ -1,9 +1,10 @@
+import { Analytics } from '@vercel/analytics/react'
 import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
 	title: 'GitHub iframe',
-	description: '',
+	description: 'Display live GitHub code in an iframe',
 	icons: 'https://fav.farm/👨‍💻',
 }
 
@@ -14,7 +15,10 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body>{children}</body>
+			<body>
+				<main>{children}</main>
+				<Analytics />
+			</body>
 		</html>
 	)
 }

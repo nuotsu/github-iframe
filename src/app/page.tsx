@@ -6,8 +6,8 @@ import { VscEye, VscFile, VscGithub } from 'react-icons/vsc'
 import ClickToCopy from '@/ui/ClickToCopy'
 import Link from 'next/link'
 
-const DEFAULT_REPO = 'nuotsu/sanitypress'
-const DEFAULT_PATH = 'src/styles/app.css'
+const DEFAULT_REPO = 'nuotsu/github-iframe'
+const DEFAULT_PATH = 'src/app/globals.css'
 
 export default function Home() {
 	const [repo, setRepo] = useState(DEFAULT_REPO)

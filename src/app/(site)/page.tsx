@@ -10,7 +10,6 @@ import {
 	VscFileCode,
 	VscGithub,
 	VscRepo,
-	VscStarFull,
 	VscSymbolColor,
 } from 'react-icons/vsc'
 import { cn, debounce } from '@/lib/utils'
@@ -29,20 +28,7 @@ export default function Home() {
 	const isValid = repo && path
 
 	return (
-		<section className="mx-auto max-w-screen-sm space-y-6 p-4">
-			<header>
-				<h1 className="font-bold">GitHub iframe</h1>
-
-				<p>
-					<a
-						className="with-icon"
-						href="https://github.com/nuotsu/github-iframe"
-					>
-						<VscStarFull /> Star on GitHub
-					</a>
-				</p>
-			</header>
-
+		<section className="space-y-6">
 			<fieldset>
 				<legend>Options</legend>
 

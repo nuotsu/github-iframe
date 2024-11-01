@@ -34,9 +34,10 @@
 
 @layer components {
 	.input {
-		padding: 0.2em 0;
 		outline: none;
+		border-radius: 0;
 		background: none;
+		padding: 0.2em 0;
 
 		@apply border-b invalid:!border-red-500 focus:border-current;
 	}

@@ -4,6 +4,7 @@ import Code from '@/ui/Code'
 import ClickToCopy from '@/ui/ClickToCopy'
 import { VscGithub } from 'react-icons/vsc'
 import { cn } from '@/lib/utils'
+import type { Metadata } from 'next'
 
 const octokit = new Octokit({
 	auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN!,

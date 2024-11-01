@@ -27,7 +27,7 @@ export const store = create<{
 export function getSrc() {
 	const src = store(({ repo, path, theme }) => {
 		return [
-			!dev ? '/' : 'https://github-iframe.vercel.app/',
+			dev ? '/' : 'https://github-iframe.vercel.app/',
 			`${repo}/${path}`,
 			theme !== DEFAULT_THEME && `?theme=${theme}`,
 		]

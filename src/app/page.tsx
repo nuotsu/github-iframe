@@ -13,7 +13,7 @@ import {
 	VscStarFull,
 	VscSymbolColor,
 } from 'react-icons/vsc'
-import { cn } from '@/lib/utils'
+import { cn, debounce } from '@/lib/utils'
 
 export default function Home() {
 	const { repo, path, theme, setRepo, setPath, setTheme } = store()
@@ -51,7 +51,7 @@ export default function Home() {
 						title="owner/repo"
 						icon={VscRepo}
 						defaultValue={repo}
-						onChange={(e) => setRepo(e.target.value)}
+						onChange={debounce((e) => setRepo(e.target.value))}
 						pattern=".+/.+"
 					/>
 
@@ -59,7 +59,7 @@ export default function Home() {
 						title="path/to/file"
 						icon={VscFileCode}
 						defaultValue={path}
-						onChange={(e) => setPath(e.target.value)}
+						onChange={debounce((e) => setPath(e.target.value))}
 					/>
 
 					<Input icon={VscSymbolColor}>

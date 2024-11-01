@@ -2,6 +2,8 @@
 
 Display live GitHub code in an iframe.
 
+> [Demo](https://github-iframe.vercel.app)
+
 ```html
 <iframe src="https://github-iframe.vercel.app/{owner}/{repo}/{path}"></iframe>
 

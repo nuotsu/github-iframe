@@ -1,11 +1,9 @@
-import type { ComponentProps } from 'react'
-
 export default function Input({
 	icon: Icon,
 	title,
 	children,
 	...props
-}: { icon: React.ElementType } & ComponentProps<'input'>) {
+}: { icon: React.ElementType } & React.ComponentProps<'input'>) {
 	return (
 		<label className="with-icon group cursor-pointer">
 			<Icon />

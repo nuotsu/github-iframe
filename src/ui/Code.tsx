@@ -1,4 +1,4 @@
-import { bundledLanguages, bundledThemes, codeToHtml } from 'shiki'
+import { codeToHtml, bundledLanguages, bundledThemes } from 'shiki'
 import { DEFAULT_THEME } from '@/lib/store'
 
 export default async function Code({

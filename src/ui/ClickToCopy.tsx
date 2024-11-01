@@ -14,7 +14,9 @@ export default function ClickToCopy({
 			className="with-icon"
 			onClick={() => {
 				if (typeof window === 'undefined' || !value) return
+
 				navigator.clipboard.writeText(value)
+
 				setCopied(true)
 				setTimeout(() => setCopied(false), 1000)
 			}}

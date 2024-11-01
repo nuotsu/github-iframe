@@ -16,7 +16,7 @@ export const store = create<{
 	setTheme: (theme: Theme) => void
 }>((set) => ({
 	repo: 'nuotsu/github-iframe',
-	path: 'src/app/globals.css',
+	path: 'src/lib/store.ts',
 	theme: DEFAULT_THEME,
 
 	setRepo: (repo: string) => set({ repo }),

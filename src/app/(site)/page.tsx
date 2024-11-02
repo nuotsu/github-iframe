@@ -1,27 +1,21 @@
 'use client'
 
-import { store, getSrc, type Theme } from '@/lib/store'
-import Input from '@/ui/Input'
+import { store, getSrc } from '@/lib/store'
 import ClickToCopy from '@/ui/ClickToCopy'
 import Link from 'next/link'
-import { bundledThemes } from 'shiki'
-import {
-	VscEye,
-	VscFileCode,
-	VscGithub,
-	VscRepo,
-	VscSymbolColor,
-} from 'react-icons/vsc'
-import { cn, debounce } from '@/lib/utils'
+import { VscEye, VscGithub, VscLoading } from 'react-icons/vsc'
+import { cn } from '@/lib/utils'
+import Options from './Options'
 
 export default function Home() {
-	const { repo, path, theme, setRepo, setPath, setTheme } = store()
+	const { repo, path } = store()
 	const src = getSrc()
 
 	const code = [
 		`<iframe`,
 		`\tsrc="${src}"`,
 		`\twidth="100%" height="400px"`,
+		`\ttitle="${repo}/${path}"`,
 		`></iframe>`,
 	].join('\n')
 
@@ -29,40 +23,7 @@ export default function Home() {
 
 	return (
 		<section className="space-y-6">
-			<fieldset>
-				<legend>Options</legend>
-
-				<div className="grid gap-x-4 gap-y-2 md:grid-cols-2">
-					<Input
-						title="owner/repo"
-						icon={VscRepo}
-						defaultValue={repo}
-						onChange={debounce((e) => setRepo(e.target.value))}
-						pattern=".+/.+"
-					/>
-
-					<Input
-						title="path/to/file"
-						icon={VscFileCode}
-						defaultValue={path}
-						onChange={debounce((e) => setPath(e.target.value))}
-					/>
-
-					<Input icon={VscSymbolColor}>
-						<select
-							title="Theme"
-							className="input w-full"
-							defaultValue={theme}
-							onChange={(e) => setTheme(e.target.value as Theme)}
-						>
-							<option disabled>Select a theme</option>
-							{Object.entries(bundledThemes).map(([theme]) => (
-								<option key={theme}>{theme}</option>
-							))}
-						</select>
-					</Input>
-				</div>
-			</fieldset>
+			<Options />
 
 			<article className="group">
 				<pre className="overflow-x-auto border group-has-[button:hover]:border-black/30">
@@ -90,7 +51,19 @@ export default function Home() {
 				</div>
 			</article>
 
-			{isValid && <div dangerouslySetInnerHTML={{ __html: code }} />}
+			<div className="group grid h-[400px] *:col-span-full *:row-span-full">
+				<p className="with-icon m-auto">
+					<VscLoading className="animate-spin" />
+					Loading...
+				</p>
+
+				{isValid && (
+					<div
+						className="relative"
+						dangerouslySetInnerHTML={{ __html: code }}
+					/>
+				)}
+			</div>
 		</section>
 	)
 }

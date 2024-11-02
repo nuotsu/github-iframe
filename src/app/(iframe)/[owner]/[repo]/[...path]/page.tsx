@@ -4,7 +4,6 @@ import Code from '@/ui/Code'
 import ClickToCopy from '@/ui/ClickToCopy'
 import { VscGithub } from 'react-icons/vsc'
 import { cn } from '@/lib/utils'
-import type { Metadata } from 'next'
 
 const octokit = new Octokit({
 	auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN!,
@@ -21,10 +20,11 @@ export default async function Page({
 	}>
 	searchParams: Promise<{
 		theme?: string
+		lineNums?: string
 	}>
 }) {
 	const { owner, repo, path } = await params
-	const { theme } = await searchParams
+	const { theme, lineNums } = await searchParams
 
 	const { data } = await octokit.rest.repos
 		.getContent({
@@ -42,7 +42,7 @@ export default async function Page({
 
 	return (
 		<>
-			<Code raw={raw} path={path} theme={theme} />
+			<Code raw={raw} path={path} options={{ theme, lineNums }} />
 
 			<nav
 				className={cn(

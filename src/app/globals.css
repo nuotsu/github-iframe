@@ -15,7 +15,7 @@
 			background-color: inherit;
 		}
 
-		code {
+		:not(.hide-line-nums) > & code {
 			counter-reset: line;
 			counter-increment: line 0;
 
@@ -39,11 +39,9 @@
 		background: none;
 		padding: 0.2em 0;
 
-		@apply border-b invalid:!border-red-500 focus:border-current;
+		@apply border-b invalid:!border-red-500 focus:border-current group-hover:border-black/30;
 	}
-}
 
-@layer utilities {
 	.with-icon {
 		display: inline-flex;
 		align-items: center;

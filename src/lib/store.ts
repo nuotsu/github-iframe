@@ -2,11 +2,11 @@ import { bundledThemes } from 'shiki'
 import { create } from 'zustand'
 import dev from '@/lib/env'
 
+export const DOMAIN = 'https://github-iframe.vercel.app'
+
 export type Theme = keyof typeof bundledThemes
 
 export const DEFAULT_THEME: Theme = 'github-dark-default'
-
-export const DOMAIN = 'https://github-iframe.vercel.app'
 
 export const store = create<{
 	repo: string

@@ -10,7 +10,7 @@ export default function Input({
 
 			{children || (
 				<input
-					className="input grow group-hover:border-black/30"
+					className="input grow"
 					type="text"
 					title={title}
 					placeholder={title}

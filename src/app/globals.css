@@ -46,5 +46,9 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 0.5ch;
+
+		& svg {
+			flex-shrink: 0;
+		}
 	}
 }

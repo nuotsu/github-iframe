@@ -22,36 +22,36 @@ export default function Home() {
 	const isValid = repo && path
 
 	return (
-		<section className="space-y-6">
+		<section className="group/root space-y-6">
 			<Options />
 
-			<article className="group">
-				<pre className="overflow-x-auto border group-has-[button:hover]:border-black/30">
+			<article className="group/code bg-neutral-50">
+				<pre className="overflow-x-auto border bg-white transition-transform group-has-[button:hover]/code:scale-[1.02]">
 					<code className={cn('block p-2', !isValid && 'opacity-50')}>
 						{isValid ? code : 'bruh...'}
 					</code>
 				</pre>
 
-				<div className="mt-1 flex flex-wrap justify-end gap-x-4 max-md:flex-col">
+				<div className="flex flex-wrap justify-end gap-x-4 px-2 py-1 max-md:flex-col">
 					<a
-						className="with-icon"
+						className="with-icon view-file-source"
 						href={`https://github.com/${repo}/blob/main/${path}`}
 						target="_blank"
 					>
 						<VscGithub />
-						View Source
+						View file source
 					</a>
 
-					<Link className="with-icon" href={src}>
+					<Link className="with-icon fullscreen-preview" href={src}>
 						<VscEye />
-						Fullscreen Preview
+						Fullscreen preview
 					</Link>
 
 					<ClickToCopy value={code}>Copy code</ClickToCopy>
 				</div>
 			</article>
 
-			<div className="group grid h-[400px] *:col-span-full *:row-span-full">
+			<div className="group grid h-[400px] transition-transform *:col-span-full *:row-span-full group-has-[.fullscreen-preview:hover]/root:scale-[1.02]">
 				<p className="with-icon m-auto">
 					<VscLoading className="animate-spin" />
 					Loading...

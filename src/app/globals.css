@@ -30,6 +30,11 @@
 			}
 		}
 	}
+
+	select {
+		-webkit-appearance: none;
+		cursor: pointer;
+	}
 }
 
 @layer components {

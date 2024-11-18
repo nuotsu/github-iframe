@@ -1,11 +1,17 @@
+import clsx from 'clsx'
+
 export default function Input({
 	icon: Icon,
 	title,
+	className,
 	children,
 	...props
 }: { icon: React.ElementType } & React.ComponentProps<'input'>) {
 	return (
-		<label className="with-icon group cursor-pointer">
+		<label
+			className={clsx('with-icon group cursor-pointer', className)}
+			title={title}
+		>
 			<Icon />
 
 			{children || (

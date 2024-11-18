@@ -1,4 +1,4 @@
-import Header from './Heaader'
+import Header from './Header'
 import Footer from './Footer'
 import { Analytics } from '@vercel/analytics/react'
 import type { Metadata } from 'next'

@@ -1,9 +1,11 @@
 import { Octokit } from 'octokit'
 import { notFound } from 'next/navigation'
-import Code from '@/ui/Code'
-import ClickToCopy from '@/ui/ClickToCopy'
+import Code from './Code'
 import { VscGithub } from 'react-icons/vsc'
+import ClickToCopy from '@/ui/ClickToCopy'
+import DisplayPath from './DisplayPath'
 import { cn } from '@/lib/utils'
+import type { Display } from '@/lib/store'
 
 const octokit = new Octokit({
 	auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN!,
@@ -20,11 +22,12 @@ export default async function Page({
 	}>
 	searchParams: Promise<{
 		theme?: string
+		display?: Display
 		lineNums?: string
 	}>
 }) {
 	const { owner, repo, path } = await params
-	const { theme, lineNums } = await searchParams
+	const { theme, display, lineNums } = await searchParams
 
 	const { data } = await octokit.rest.repos
 		.getContent({
@@ -60,6 +63,16 @@ export default async function Page({
 
 				<ClickToCopy value={raw} />
 			</nav>
+
+			{display !== 'none' && (
+				<DisplayPath
+					owner={owner}
+					repo={repo}
+					path={path}
+					theme={theme}
+					display={display}
+				/>
+			)}
 		</>
 	)
 }

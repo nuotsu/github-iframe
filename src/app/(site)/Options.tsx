@@ -1,6 +1,6 @@
 'use client'
 
-import { store, type Theme } from '@/lib/store'
+import { store, DISPLAYS, type Theme, type Display } from '@/lib/store'
 import Input from '@/ui/Input'
 import { debounce } from '@/lib/utils'
 import {
@@ -8,6 +8,8 @@ import {
 	VscFileCode,
 	VscRepo,
 	VscSymbolColor,
+	VscEye,
+	VscEyeClosed,
 } from 'react-icons/vsc'
 import { bundledThemes } from 'shiki'
 import Checkbox from '@/ui/Checkbox'
@@ -17,10 +19,12 @@ export default function Options() {
 		repo,
 		path,
 		theme,
+		display,
 		lineNums,
 		setRepo,
 		setPath,
 		setTheme,
+		setDisplay,
 		setLineNums,
 	} = store()
 
@@ -44,6 +48,27 @@ export default function Options() {
 					icon={VscFileCode}
 					defaultValue={path}
 					onChange={debounce((e) => setPath(e.target.value))}
+					className="group-[:has(.view-file-source:hover)_input]/root:border-black/30"
+				/>
+
+				<Input icon={display === 'none' ? VscEyeClosed : VscEye}>
+					<span>Display</span>
+					<select
+						className="input w-full"
+						defaultValue={display}
+						onChange={(e) => setDisplay(e.target.value as Display)}
+					>
+						{DISPLAYS.map((option) => (
+							<option key={option}>{option}</option>
+						))}
+					</select>
+				</Input>
+
+				<Checkbox
+					label="Show line numbers"
+					defaultChecked={lineNums}
+					reverseChecked
+					onChange={(e) => setLineNums(e.target.checked)}
 				/>
 
 				<Input icon={VscSymbolColor}>
@@ -54,17 +79,11 @@ export default function Options() {
 						onChange={(e) => setTheme(e.target.value as Theme)}
 					>
 						<option disabled>Select a theme</option>
-						{Object.entries(bundledThemes).map(([theme]) => (
-							<option key={theme}>{theme}</option>
+						{Object.entries(bundledThemes).map(([option]) => (
+							<option key={option}>{option}</option>
 						))}
 					</select>
 				</Input>
-
-				<Checkbox
-					label="Show line numbers"
-					defaultChecked={lineNums}
-					onChange={(e) => setLineNums(e.target.checked)}
-				/>
 			</div>
 		</fieldset>
 	)

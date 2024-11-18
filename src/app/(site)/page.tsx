@@ -1,11 +1,11 @@
 'use client'
 
 import { store, getSrc } from '@/lib/store'
-import ClickToCopy from '@/ui/ClickToCopy'
+import Options from './Options'
 import Link from 'next/link'
+import ClickToCopy from '@/ui/ClickToCopy'
 import { VscEye, VscGithub, VscLoading } from 'react-icons/vsc'
 import { cn } from '@/lib/utils'
-import Options from './Options'
 
 export default function Home() {
 	const { repo, path } = store()

@@ -12,6 +12,7 @@ Display live GitHub code in an iframe.
 	src="https://github-iframe.vercel.app/nuotsu/github-iframe/src/app/globals.css"
 	width="100%"
 	height="400px"
+	title="nuotsu/github-iframe/src/app/globals.css"
 ></iframe>
 ```
 

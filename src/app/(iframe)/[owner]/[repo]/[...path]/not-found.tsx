@@ -7,12 +7,12 @@ export default function Error() {
 			className="grid h-svh w-svw place-content-center gap-3 text-center font-mono"
 		>
 			<img
-				className="w-[250px]"
-				src="https://media.giphy.com/media/KSKvdT1YGCpUIonvSq/giphy.gif?cid=790b7611ju2wj33qj50w7u3czq0kl1v3se763hjo4crfwl12&ep=v1_gifs_search&rid=giphy.gif&ct=g"
-				width={480}
-				height={400}
+				className="m-auto w-[60px]"
+				src="https://github.githubassets.com/assets/mona-loading-dark-7701a7b97370.gif"
+				width={384}
+				height={384}
 				loading="eager"
-				alt='Michael Scott saying "I tried."'
+				alt="Mona loading..."
 				draggable={false}
 			/>
 

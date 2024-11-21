@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
 @layer base {
 	pre {
@@ -31,6 +29,11 @@
 		}
 	}
 
+	button {
+		cursor: pointer;
+		color: inherit;
+	}
+
 	select {
 		-webkit-appearance: none;
 		cursor: pointer;
@@ -38,13 +41,19 @@
 }
 
 @layer components {
+	.button {
+		border: none;
+		background-color: transparent;
+	}
+
 	.input {
 		outline: none;
+		border: none;
 		border-radius: 0;
 		background: none;
 		padding: 0.2em 0;
 
-		@apply border-b invalid:!border-red-500 focus:border-current group-hover:border-black/30;
+		@apply border-b border-neutral-300 group-hover:border-black/30 invalid:border-red-500! focus:border-current;
 	}
 
 	.with-icon {

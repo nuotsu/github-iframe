@@ -1,17 +1,19 @@
 'use client'
 
+import { cn } from '@/lib/utils'
 import { useState, type ComponentProps } from 'react'
 import { VscCheck, VscCopy } from 'react-icons/vsc'
 
 export default function ClickToCopy({
 	value,
+	className,
 	children,
 }: { value?: string } & ComponentProps<'button'>) {
 	const [copied, setCopied] = useState(false)
 
 	return (
 		<button
-			className="with-icon"
+			className={cn('with-icon', className)}
 			onClick={() => {
 				if (typeof window === 'undefined' || !value) return
 

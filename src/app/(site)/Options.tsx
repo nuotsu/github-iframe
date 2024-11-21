@@ -29,7 +29,7 @@ export default function Options() {
 	} = store()
 
 	return (
-		<fieldset className="border p-2">
+		<fieldset className="border border-neutral-300 p-2">
 			<legend className="with-icon">
 				<VscSettings /> Options
 			</legend>

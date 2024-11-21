@@ -25,8 +25,8 @@ export default function Home() {
 		<section className="group/root space-y-6">
 			<Options />
 
-			<article className="group/code bg-neutral-50">
-				<pre className="overflow-x-auto border bg-white transition-transform group-has-[button:hover]/code:scale-[1.02]">
+			<article className="group/code bg-neutral-100">
+				<pre className="overflow-x-auto border border-neutral-300 bg-white transition-transform group-has-[button:hover]/code:scale-[1.02]">
 					<code className={cn('block p-2', !isValid && 'opacity-50')}>
 						{isValid ? code : 'bruh...'}
 					</code>
@@ -47,7 +47,9 @@ export default function Home() {
 						Fullscreen preview
 					</Link>
 
-					<ClickToCopy value={code}>Copy code</ClickToCopy>
+					<ClickToCopy className="button" value={code}>
+						Copy code
+					</ClickToCopy>
 				</div>
 			</article>
 

@@ -18,7 +18,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className="bg-white">
-				<div className="mx-auto flex min-h-screen max-w-screen-sm flex-col gap-6 p-4">
+				<div className="mx-auto flex min-h-screen max-w-(--breakpoint-sm) flex-col gap-6 p-4">
 					<Header />
 					<main>{children}</main>
 					<Footer />

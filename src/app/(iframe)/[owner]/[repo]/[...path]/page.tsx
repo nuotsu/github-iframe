@@ -1,5 +1,4 @@
-import { Octokit } from 'octokit'
-import { notFound } from 'next/navigation'
+import { getRawContent } from '@/lib/octokit'
 import Code from './Code'
 import { VscGithub } from 'react-icons/vsc'
 import ClickToCopy from '@/ui/ClickToCopy'
@@ -7,13 +6,10 @@ import DisplayPath from './DisplayPath'
 import { cn } from '@/lib/utils'
 import type { Display } from '@/lib/store'
 
-const octokit = new Octokit({
-	auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN!,
-})
-
 export default async function Page({
 	params,
 	searchParams,
+	...rest
 }: {
 	params: Promise<{
 		owner: string
@@ -29,19 +25,7 @@ export default async function Page({
 	const { owner, repo, path } = await params
 	const { theme, display, lineNums } = await searchParams
 
-	const { data } = await octokit.rest.repos
-		.getContent({
-			owner,
-			repo,
-			path: path?.join('/') ?? '',
-			mediaType: {
-				format: 'raw',
-			},
-		})
-		// TODO: handle errors
-		.catch(notFound)
-
-	const raw = String(data)
+	const raw = await getRawContent({ owner, repo, path })
 
 	return (
 		<>
@@ -49,7 +33,7 @@ export default async function Page({
 
 			<nav
 				className={cn(
-					'fixed right-2 top-1 flex text-lg *:p-1 *:opacity-25 [&>:hover]:opacity-100',
+					'fixed top-1 right-2 flex text-lg *:p-1 *:opacity-25 [&>:hover]:opacity-100',
 					!theme?.includes('light') && 'text-white',
 				)}
 			>

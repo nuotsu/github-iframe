@@ -3,10 +3,14 @@ import clsx from 'clsx'
 export default function Input({
 	icon: Icon,
 	title,
+	label,
 	className,
 	children,
 	...props
-}: { icon: React.ElementType } & React.ComponentProps<'input'>) {
+}: {
+	icon: React.ElementType
+	label?: string
+} & React.ComponentProps<'input'>) {
 	return (
 		<label
 			className={clsx('with-icon group cursor-pointer', className)}
@@ -14,9 +18,11 @@ export default function Input({
 		>
 			<Icon />
 
+			{label && <span>{label}</span>}
+
 			{children || (
 				<input
-					className="input grow"
+					className="input w-full grow"
 					type="text"
 					title={title}
 					placeholder={title}

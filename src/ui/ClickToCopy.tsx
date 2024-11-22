@@ -13,7 +13,7 @@ export default function ClickToCopy({
 
 	return (
 		<button
-			className={cn('with-icon', className)}
+			className={cn('button with-icon', className)}
 			onClick={() => {
 				if (typeof window === 'undefined' || !value) return
 

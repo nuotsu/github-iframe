@@ -10,6 +10,7 @@ import {
 	VscSymbolColor,
 	VscEye,
 	VscEyeClosed,
+	VscPaintcan,
 } from 'react-icons/vsc'
 import { bundledThemes } from 'shiki'
 import Checkbox from '@/ui/Checkbox'
@@ -21,11 +22,13 @@ export default function Options() {
 		theme,
 		display,
 		lineNums,
+		highlight,
 		setRepo,
 		setPath,
 		setTheme,
 		setDisplay,
 		setLineNums,
+		setHighlight,
 	} = store()
 
 	return (
@@ -51,8 +54,24 @@ export default function Options() {
 					className="group-[:has(.view-file-source:hover)_input]/root:border-black/30"
 				/>
 
-				<Input icon={display === 'none' ? VscEyeClosed : VscEye}>
-					<span>Display</span>
+				<Input icon={VscSymbolColor}>
+					<select
+						title="Theme"
+						className="input w-full"
+						defaultValue={theme}
+						onChange={(e) => setTheme(e.target.value as Theme)}
+					>
+						<option disabled>Select a theme</option>
+						{Object.entries(bundledThemes).map(([option]) => (
+							<option key={option}>{option}</option>
+						))}
+					</select>
+				</Input>
+
+				<Input
+					label="Display"
+					icon={display === 'none' ? VscEyeClosed : VscEye}
+				>
 					<select
 						className="input w-full"
 						defaultValue={display}
@@ -71,19 +90,15 @@ export default function Options() {
 					onChange={(e) => setLineNums(e.target.checked)}
 				/>
 
-				<Input icon={VscSymbolColor}>
-					<select
-						title="Theme"
-						className="input w-full"
-						defaultValue={theme}
-						onChange={(e) => setTheme(e.target.value as Theme)}
-					>
-						<option disabled>Select a theme</option>
-						{Object.entries(bundledThemes).map(([option]) => (
-							<option key={option}>{option}</option>
-						))}
-					</select>
-				</Input>
+				<Input
+					title="Lines to highlight"
+					label="Highlight"
+					icon={VscPaintcan}
+					defaultValue={highlight}
+					onChange={(e) => setHighlight(e.target.value)}
+					pattern="((\d+|\d+-\d+),)*(\d+|\d+-\d+)"
+					placeholder="lines (e.g. 5,14-19)"
+				/>
 			</div>
 		</fieldset>
 	)

@@ -19,3 +19,10 @@ Display live GitHub code in an iframe.
 ## Preview
 
 ![](./public/iframe.png)
+
+## Name options
+
+Open to suggestions:
+
+- iframehub (https://iframehub.dev)
+- framehub (https://framehub.dev)

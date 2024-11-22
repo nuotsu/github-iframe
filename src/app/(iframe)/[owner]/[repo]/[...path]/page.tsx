@@ -1,4 +1,5 @@
 import { getRawContent } from '@/lib/octokit'
+import ConvertHashToParam from './ConvertHashToParam'
 import Code from './Code'
 import { VscGithub } from 'react-icons/vsc'
 import ClickToCopy from '@/ui/ClickToCopy'
@@ -9,7 +10,6 @@ import type { Display } from '@/lib/store'
 export default async function Page({
 	params,
 	searchParams,
-	...rest
 }: {
 	params: Promise<{
 		owner: string
@@ -20,20 +20,23 @@ export default async function Page({
 		theme?: string
 		display?: Display
 		lineNums?: string
+		L?: string
 	}>
 }) {
 	const { owner, repo, path } = await params
-	const { theme, display, lineNums } = await searchParams
+	const { theme, display, lineNums, L } = await searchParams
 
 	const raw = await getRawContent({ owner, repo, path })
 
 	return (
 		<>
-			<Code raw={raw} path={path} options={{ theme, lineNums }} />
+			<ConvertHashToParam params={{ theme, display, lineNums }} />
+
+			<Code raw={raw} path={path} options={{ theme, lineNums, L }} />
 
 			<nav
 				className={cn(
-					'fixed top-1 right-2 flex text-lg *:p-1 *:opacity-25 [&>:hover]:opacity-100',
+					'fixed top-1 right-2 flex text-lg *:p-1 *:opacity-25 *:transition-opacity [&>:hover]:opacity-100',
 					!theme?.includes('light') && 'text-white',
 				)}
 			>

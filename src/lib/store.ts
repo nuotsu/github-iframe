@@ -5,7 +5,7 @@ import { dev } from '@/lib/env'
 export const DOMAIN = 'https://github-iframe.vercel.app'
 
 export const DISPLAYS = ['none', 'repo', 'path', 'all'] as const
-export const DEFAULT_THEME: Theme = 'github-dark-default'
+export const DEFAULT_THEME: Theme = 'dark-plus'
 
 export type Display = (typeof DISPLAYS)[number]
 export type Theme = keyof typeof bundledThemes

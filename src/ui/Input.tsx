@@ -13,10 +13,10 @@ export default function Input({
 } & React.ComponentProps<'input'>) {
 	return (
 		<label
-			className={clsx('with-icon group cursor-pointer', className)}
+			className={clsx('with-icon group/input cursor-pointer', className)}
 			title={title}
 		>
-			<Icon />
+			<Icon className="group-has-[[required]:invalid]/input:text-red-500" />
 
 			{label && <span>{label}</span>}
 

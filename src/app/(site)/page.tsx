@@ -19,7 +19,7 @@ export default function Home() {
 		`></iframe>`,
 	].join('\n')
 
-	const isValid = repo && path
+	const isValid = repo?.includes('/') && path
 
 	return (
 		<section className="group/root space-y-6">
@@ -53,19 +53,21 @@ export default function Home() {
 				</div>
 			</article>
 
-			<div className="group grid h-[400px] bg-neutral-50 transition-transform *:col-span-full *:row-span-full group-has-[.fullscreen-preview:hover]/root:scale-[1.02]">
-				<p className="with-icon m-auto">
-					<VscLoading className="animate-spin" />
-					Loading...
-				</p>
+			{isValid && (
+				<div className="group grid h-[400px] bg-neutral-50 transition-transform *:col-span-full *:row-span-full group-has-[.fullscreen-preview:hover]/root:scale-[1.02]">
+					<p className="with-icon m-auto">
+						<VscLoading className="animate-spin" />
+						Loading...
+					</p>
 
-				{isValid && (
-					<div
-						className="relative"
-						dangerouslySetInnerHTML={{ __html: code }}
-					/>
-				)}
-			</div>
+					{isValid && (
+						<div
+							className="relative"
+							dangerouslySetInnerHTML={{ __html: code }}
+						/>
+					)}
+				</div>
+			)}
 		</section>
 	)
 }

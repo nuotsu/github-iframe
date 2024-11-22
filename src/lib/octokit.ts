@@ -30,3 +30,13 @@ export async function getRawContent({
 
 	return String(data)
 }
+
+export async function getStargazers(ownerrepo: string) {
+	if (!ownerrepo?.includes('/')) return 0
+
+	const [owner, repo] = ownerrepo.split('/')
+
+	const { data } = await octokit.rest.repos.get({ owner, repo })
+
+	return data.stargazers_count
+}

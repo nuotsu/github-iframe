@@ -16,21 +16,21 @@ export const store = create<{
 	theme: Theme
 	display: Display
 	lineNums: boolean
-	highlight?: string
+	highlight: string
 
 	setRepo: (repo: string) => void
 	setPath: (path: string) => void
 	setTheme: (theme: Theme) => void
 	setDisplay: (display: Display) => void
 	setLineNums: (lineNums: boolean) => void
-	setHighlight: (highlight?: string) => void
+	setHighlight: (highlight: string) => void
 }>((set) => ({
 	repo: 'nuotsu/github-iframe',
 	path: 'src/lib/store.ts',
 	theme: DEFAULT_THEME,
 	display: DISPLAYS[0],
 	lineNums: false,
-	highlight: undefined,
+	highlight: '',
 
 	setRepo: (repo: string) => set({ repo }),
 	setPath: (path: string) => set({ path }),

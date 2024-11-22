@@ -7,7 +7,7 @@ export default function Error() {
 			className="grid h-svh w-svw place-content-center gap-3 text-center font-mono"
 		>
 			<img
-				className="m-auto w-[60px]"
+				className="m-auto w-[60px] text-[0px]"
 				src="https://github.githubassets.com/assets/mona-loading-dark-7701a7b97370.gif"
 				width={384}
 				height={384}

@@ -53,7 +53,7 @@ export default function Home() {
 				</div>
 			</article>
 
-			<div className="group grid h-[400px] transition-transform *:col-span-full *:row-span-full group-has-[.fullscreen-preview:hover]/root:scale-[1.02]">
+			<div className="group grid h-[400px] bg-neutral-50 transition-transform *:col-span-full *:row-span-full group-has-[.fullscreen-preview:hover]/root:scale-[1.02]">
 				<p className="with-icon m-auto">
 					<VscLoading className="animate-spin" />
 					Loading...

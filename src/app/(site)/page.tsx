@@ -8,7 +8,7 @@ import { VscEye, VscGithub, VscLoading } from 'react-icons/vsc'
 import { cn } from '@/lib/utils'
 
 export default function Home() {
-	const { repo, path } = store()
+	const { repo, path, highlight } = store()
 	const src = getSrc()
 
 	const code = [
@@ -35,7 +35,7 @@ export default function Home() {
 				<div className="flex flex-wrap justify-end gap-x-4 px-2 py-1 max-md:flex-col">
 					<a
 						className="with-icon view-file-source"
-						href={`https://github.com/${repo}/blob/main/${path}`}
+						href={`https://github.com/${repo}/blob/main/${path}${highlight ? `#L${highlight}` : ''}`}
 						target="_blank"
 					>
 						<VscGithub />

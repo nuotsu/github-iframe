@@ -41,9 +41,10 @@ export const store = create<{
 }))
 
 export function getSrc() {
-	const src = store(({ repo, path, theme, display, lineNums, highlight }) => {
+	return store(({ repo, path, theme, display, lineNums, highlight }) => {
+		const domain = dev ? 'http://localhost:3000' : DOMAIN
 		const url = new URL(
-			`${dev ? 'http://localhost:3000' : DOMAIN}/${repo}/${path}${highlight ? `#L${highlight}` : ''}`,
+			`${domain}/${repo}/${path}${highlight ? `#L${highlight}` : ''}`,
 		)
 
 		if (theme !== DEFAULT_THEME) url.searchParams.set('theme', theme)
@@ -52,6 +53,4 @@ export function getSrc() {
 
 		return url.toString()
 	})
-
-	return src
 }

@@ -39,19 +39,21 @@ export default function Options() {
 
 			<div className="grid gap-x-4 gap-y-2 md:grid-cols-2">
 				<Input
-					title="owner/repo"
+					title="Repo owner/repo"
 					icon={VscRepo}
 					defaultValue={repo}
 					onChange={debounce((e) => setRepo(e.target.value))}
 					pattern=".+/.+"
+					required
 				/>
 
 				<Input
-					title="path/to/file"
+					title="Path to file"
 					icon={VscFileCode}
 					defaultValue={path}
 					onChange={debounce((e) => setPath(e.target.value))}
 					className="group-[:has(.view-file-source:hover)_input]/root:border-black/30"
+					required
 				/>
 
 				<Input icon={VscSymbolColor}>
@@ -91,8 +93,8 @@ export default function Options() {
 				/>
 
 				<Input
-					title="Lines to highlight"
 					label="Highlight"
+					title="Lines to highlight"
 					icon={VscPaintcan}
 					defaultValue={highlight}
 					onChange={(e) => setHighlight(e.target.value)}

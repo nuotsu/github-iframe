@@ -1,4 +1,4 @@
-import { getRawContent } from '@/lib/octokit'
+import { getRawContent } from '@/lib/octokit/utils'
 import ConvertHashToParam from './ConvertHashToParam'
 import Code from './Code'
 import { VscGithub } from 'react-icons/vsc'

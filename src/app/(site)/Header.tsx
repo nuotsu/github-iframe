@@ -1,4 +1,4 @@
-import { getStargazers } from '@/lib/octokit'
+import { getStargazers } from '@/lib/octokit/utils'
 import { VscStarFull } from 'react-icons/vsc'
 
 const version = process.env.npm_package_version

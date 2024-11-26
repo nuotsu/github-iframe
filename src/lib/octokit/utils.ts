@@ -1,21 +1,15 @@
 'use server'
 
-import { Octokit } from 'octokit'
+import { octokit } from './client'
 import { notFound } from 'next/navigation'
 
-const octokit = new Octokit({
-	auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN!,
-})
-
-export async function getRawContent({
-	owner,
-	repo,
-	path,
-}: {
+type Props = {
 	owner: string
 	repo: string
 	path?: string[]
-}) {
+}
+
+export async function getRawContent({ owner, repo, path }: Props) {
 	const { data } = await octokit.rest.repos
 		.getContent({
 			owner,

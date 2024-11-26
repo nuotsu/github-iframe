@@ -94,11 +94,11 @@
 }
 @utility anim-fade-to-l {
 	@apply anim-fade;
-	--x: -1rem;
+	--x: 1rem;
 }
 @utility anim-fade-to-r {
 	@apply anim-fade;
-	--x: 1rem;
+	--x: -1rem;
 }
 @utility anim-fade-to-t {
 	@apply anim-fade;

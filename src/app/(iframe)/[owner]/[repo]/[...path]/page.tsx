@@ -4,6 +4,7 @@ import Code from './Code'
 import { VscGithub } from 'react-icons/vsc'
 import ClickToCopy from '@/ui/ClickToCopy'
 import DisplayPath from './DisplayPath'
+import BgColor from './BgColor'
 import { cn } from '@/lib/utils'
 import type { Display } from '@/lib/store'
 
@@ -60,6 +61,8 @@ export default async function Page({
 					display={display}
 				/>
 			)}
+
+			<BgColor />
 		</>
 	)
 }

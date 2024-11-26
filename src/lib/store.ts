@@ -54,3 +54,16 @@ export function getSrc() {
 		return url.toString()
 	})
 }
+
+export function getCode() {
+	const { repo, path } = store()
+	const src = getSrc()
+
+	return [
+		`<iframe`,
+		`\tsrc="${src}"`,
+		`\twidth="100%" height="400px"`,
+		`\ttitle="${repo}/${path}"`,
+		`></iframe>`,
+	].join('\n')
+}

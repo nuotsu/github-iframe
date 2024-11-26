@@ -1,23 +1,14 @@
 'use client'
 
-import { store, getSrc } from '@/lib/store'
+import { store, getCode } from '@/lib/store'
 import Options from './Options'
-import Link from 'next/link'
-import ClickToCopy from '@/ui/ClickToCopy'
-import { VscEye, VscGithub, VscLoading } from 'react-icons/vsc'
+import Actions from './Actions'
+import { VscLoading } from 'react-icons/vsc'
 import { cn } from '@/lib/utils'
 
 export default function Home() {
-	const { repo, path, highlight } = store()
-	const src = getSrc()
-
-	const code = [
-		`<iframe`,
-		`\tsrc="${src}"`,
-		`\twidth="100%" height="400px"`,
-		`\ttitle="${repo}/${path}"`,
-		`></iframe>`,
-	].join('\n')
+	const { repo, path } = store()
+	const code = getCode()
 
 	const isValid = repo?.includes('/') && path
 
@@ -32,25 +23,7 @@ export default function Home() {
 					</code>
 				</pre>
 
-				<div className="flex flex-wrap justify-end gap-x-4 px-2 py-1 max-md:flex-col">
-					<a
-						className="with-icon view-file-source"
-						href={`https://github.com/${repo}/blob/main/${path}${highlight ? `#L${highlight}` : ''}`}
-						target="_blank"
-					>
-						<VscGithub />
-						View file source
-					</a>
-
-					<Link className="with-icon fullscreen-preview" href={src}>
-						<VscEye />
-						Fullscreen preview
-					</Link>
-
-					<ClickToCopy className="button" value={code}>
-						Copy code
-					</ClickToCopy>
-				</div>
+				{isValid && <Actions />}
 			</article>
 
 			{isValid && (

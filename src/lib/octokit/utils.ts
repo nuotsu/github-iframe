@@ -2,14 +2,17 @@
 
 import { octokit } from './client'
 import { notFound } from 'next/navigation'
+import { unstable_cache } from 'next/cache'
 
-type Props = {
+export async function getRawContent({
+	owner,
+	repo,
+	path,
+}: {
 	owner: string
 	repo: string
 	path?: string[]
-}
-
-export async function getRawContent({ owner, repo, path }: Props) {
+}) {
 	const { data } = await octokit.rest.repos
 		.getContent({
 			owner,
@@ -25,7 +28,7 @@ export async function getRawContent({ owner, repo, path }: Props) {
 	return String(data)
 }
 
-export async function getStargazers(ownerrepo: string) {
+async function getStargazers(ownerrepo: string) {
 	if (!ownerrepo?.includes('/')) return 0
 
 	const [owner, repo] = ownerrepo.split('/')
@@ -34,3 +37,11 @@ export async function getStargazers(ownerrepo: string) {
 
 	return data.stargazers_count
 }
+
+export const getCachedStargazers = unstable_cache(
+	getStargazers,
+	['stargazers'],
+	{
+		revalidate: 3600 * 24, // 1 day
+	},
+)

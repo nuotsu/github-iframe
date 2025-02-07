@@ -1,11 +1,11 @@
-import { getStargazers } from '@/lib/octokit/utils'
+import { getCachedStargazers } from '@/lib/octokit/utils'
 import { VscStarFull } from 'react-icons/vsc'
 
 const version = process.env.npm_package_version
 const repo = 'nuotsu/github-iframe'
 
 export default async function Header() {
-	const stargazers = await getStargazers(repo)
+	const stargazers = await getCachedStargazers(repo)
 
 	return (
 		<header>

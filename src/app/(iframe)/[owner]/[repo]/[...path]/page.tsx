@@ -33,7 +33,9 @@ export default async function Page({
 
 	return (
 		<>
-			<ConvertHashToParam params={{ theme, display, lineNums, scrollTo }} />
+			<ConvertHashToParam
+				params={{ theme, lang, display, lineNums, scrollTo }}
+			/>
 
 			<Code
 				raw={raw}

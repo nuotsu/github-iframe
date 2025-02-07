@@ -14,40 +14,45 @@ export const store = create<{
 	repo: string
 	path: string
 	theme: Theme
-	display: Display
+	lang?: string
 	lineNums: boolean
 	highlight: string
+	display: Display
 
 	setRepo: (repo: string) => void
 	setPath: (path: string) => void
 	setTheme: (theme: Theme) => void
-	setDisplay: (display: Display) => void
+	setLang: (lang: string) => void
 	setLineNums: (lineNums: boolean) => void
 	setHighlight: (highlight: string) => void
+	setDisplay: (display: Display) => void
 }>((set) => ({
 	repo: 'nuotsu/github-iframe',
 	path: 'src/lib/store.ts',
 	theme: DEFAULT_THEME,
-	display: DISPLAYS[0],
+	lang: undefined,
 	lineNums: false,
 	highlight: '',
+	display: DISPLAYS[0],
 
 	setRepo: (repo: string) => set({ repo }),
 	setPath: (path: string) => set({ path }),
 	setTheme: (theme: Theme) => set({ theme }),
-	setDisplay: (display: Display) => set({ display }),
+	setLang: (lang: string) => set({ lang }),
 	setLineNums: (lineNums: boolean) => set({ lineNums }),
 	setHighlight: (highlight: string) => set({ highlight }),
+	setDisplay: (display: Display) => set({ display }),
 }))
 
 export function getSrc() {
-	return store(({ repo, path, theme, display, lineNums, highlight }) => {
+	return store(({ repo, path, theme, lang, display, lineNums, highlight }) => {
 		const domain = dev ? 'http://localhost:3000' : DOMAIN
 		const url = new URL(
 			`${domain}/${repo}/${path}${highlight ? `#L${highlight}` : ''}`,
 		)
 
 		if (theme !== DEFAULT_THEME) url.searchParams.set('theme', theme)
+		if (lang) url.searchParams.set('lang', lang)
 		if (display !== 'none') url.searchParams.set('display', display)
 		if (lineNums) url.searchParams.set('lineNums', '0')
 

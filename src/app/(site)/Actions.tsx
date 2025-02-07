@@ -23,7 +23,7 @@ export default function Actions() {
 				View file source
 			</a>
 
-			<Link className="with-icon fullscreen-preview" href={src}>
+			<Link className="with-icon fullscreen-preview" href={src} target="_blank">
 				<VscEye />
 				Fullscreen preview
 			</Link>

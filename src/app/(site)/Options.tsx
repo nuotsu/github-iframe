@@ -11,6 +11,9 @@ import {
 	VscEye,
 	VscEyeClosed,
 	VscPaintcan,
+	VscCode,
+	VscListSelection,
+	VscListOrdered,
 } from 'react-icons/vsc'
 import { bundledThemes } from 'shiki'
 import Checkbox from '@/ui/Checkbox'
@@ -20,16 +23,20 @@ export default function Options() {
 		repo,
 		path,
 		theme,
+		lang,
 		display,
 		lineNums,
 		highlight,
 		setRepo,
 		setPath,
 		setTheme,
+		setLang,
 		setDisplay,
 		setLineNums,
 		setHighlight,
 	} = store()
+
+	const ext = path?.split('.').at(-1) ?? ''
 
 	return (
 		<fieldset className="border border-neutral-300 p-2">
@@ -71,22 +78,17 @@ export default function Options() {
 				</Input>
 
 				<Input
-					label="Display"
-					icon={display === 'none' ? VscEyeClosed : VscEye}
-				>
-					<select
-						className="input w-full"
-						defaultValue={display}
-						onChange={(e) => setDisplay(e.target.value as Display)}
-					>
-						{DISPLAYS.map((option) => (
-							<option key={option}>{option}</option>
-						))}
-					</select>
-				</Input>
+					label="Language"
+					icon={VscCode}
+					defaultValue={lang}
+					onChange={(e) => setLang(e.target.value)}
+					placeholder={ext}
+				/>
 
 				<Checkbox
-					label="Show line numbers"
+					label={`${lineNums ? 'Hide' : 'Show'} line numbers`}
+					onIcon={VscListOrdered}
+					offIcon={VscListSelection}
 					defaultChecked={lineNums}
 					reverseChecked
 					onChange={(e) => setLineNums(e.target.checked)}
@@ -101,6 +103,21 @@ export default function Options() {
 					pattern="((\d+|\d+-\d+),)*(\d+|\d+-\d+)"
 					placeholder="lines (e.g. 5,14-19)"
 				/>
+
+				<Input
+					label="Display"
+					icon={display === 'none' ? VscEyeClosed : VscEye}
+				>
+					<select
+						className="input w-full"
+						defaultValue={display}
+						onChange={(e) => setDisplay(e.target.value as Display)}
+					>
+						{DISPLAYS.map((option) => (
+							<option key={option}>{option}</option>
+						))}
+					</select>
+				</Input>
 			</div>
 		</fieldset>
 	)

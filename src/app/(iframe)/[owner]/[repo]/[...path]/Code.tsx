@@ -17,16 +17,22 @@ export default async function Code({
 	path?: string[]
 	options: {
 		theme?: string
+		lang?: string
 		lineNums?: string
 		L?: string
 	}
 }) {
 	const ext = path?.at(-1)?.split('.').at(-1) ?? ''
 
-	const { theme, L } = options
+	const { theme, lang, L } = options
 
 	const code = await codeToHtml(raw, {
-		lang: Object.keys(bundledLanguages).includes(ext) ? ext : 'text',
+		lang:
+			lang && Object.keys(bundledLanguages).includes(lang)
+				? lang
+				: Object.keys(bundledLanguages).includes(ext)
+					? ext
+					: 'text',
 		theme:
 			theme && Object.keys(bundledThemes).includes(theme)
 				? theme

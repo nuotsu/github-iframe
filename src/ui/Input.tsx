@@ -14,7 +14,7 @@ export default function Input({
 	return (
 		<label
 			className={clsx('with-icon group/input cursor-pointer', className)}
-			title={title}
+			title={title || label}
 		>
 			<Icon className="group-has-[[required]:invalid]/input:text-red-500" />
 
@@ -24,7 +24,6 @@ export default function Input({
 				<input
 					className="input w-full grow"
 					type="text"
-					title={title}
 					placeholder={title}
 					{...props}
 				/>

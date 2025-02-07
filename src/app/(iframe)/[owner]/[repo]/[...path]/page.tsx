@@ -19,13 +19,14 @@ export default async function Page({
 	}>
 	searchParams: Promise<{
 		theme?: string
+		lang?: string
 		display?: Display
 		lineNums?: string
 		L?: string
 	}>
 }) {
 	const { owner, repo, path } = await params
-	const { theme, display, lineNums, L } = await searchParams
+	const { theme, lang, display, lineNums, L } = await searchParams
 
 	const raw = await getRawContent({ owner, repo, path })
 
@@ -33,7 +34,7 @@ export default async function Page({
 		<>
 			<ConvertHashToParam params={{ theme, display, lineNums }} />
 
-			<Code raw={raw} path={path} options={{ theme, lineNums, L }} />
+			<Code raw={raw} path={path} options={{ theme, lang, lineNums, L }} />
 
 			<nav
 				className={cn(

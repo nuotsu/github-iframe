@@ -9,10 +9,10 @@ Display live GitHub code in an iframe.
 
 <!-- e.g. -->
 <iframe
-	src="https://github-iframe.vercel.app/nuotsu/github-iframe/src/app/globals.css"
+	src="https://github-iframe.vercel.app/nuotsu/github-iframe/src/lib/store.ts"
 	width="100%"
 	height="400px"
-	title="nuotsu/github-iframe/src/app/globals.css"
+	title="nuotsu/github-iframe/src/lib/store.ts"
 ></iframe>
 ```
 

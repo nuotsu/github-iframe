@@ -6,6 +6,7 @@ import {
 	type DecorationItem,
 } from 'shiki'
 import { DEFAULT_THEME } from '@/lib/store'
+import CodeWrapper from './CodeWrapper'
 import { cn } from '@/lib/utils'
 
 export default async function Code({
@@ -19,12 +20,13 @@ export default async function Code({
 		theme?: string
 		lang?: string
 		lineNums?: string
+		scrollTo?: string
 		L?: string
 	}
 }) {
 	const ext = path?.at(-1)?.split('.').at(-1) ?? ''
 
-	const { theme, lang, L } = options
+	const { theme, lang, scrollTo, L } = options
 
 	const code = await codeToHtml(raw, {
 		lang:
@@ -41,9 +43,11 @@ export default async function Code({
 	})
 
 	const lineNumDigits = String(raw.split('\n').length).length ?? 1
+	const firstHighlightedLine = L?.split(',')?.[0]?.split('-')?.[0]
 
 	return (
-		<article
+		<CodeWrapper
+			scrollTo={!!scrollTo ? firstHighlightedLine : undefined}
 			className={cn(
 				'*:px-2 *:py-1',
 				['0', 'false'].includes(options?.lineNums ?? '') && 'hide-line-nums',
@@ -80,6 +84,6 @@ function convertLtoDecorations(L: string, code: string): DecorationItem[] {
 		?.map(({ row, characters }) => ({
 			start: { line: row - 1, character: 0 },
 			end: { line: row - 1, character: characters },
-			properties: { class: 'highlight' },
+			properties: { class: 'highlight', 'data-line': row },
 		}))
 }

@@ -27,6 +27,7 @@ export default function Options() {
 		display,
 		lineNums,
 		highlight,
+		scrollTo,
 		setRepo,
 		setPath,
 		setTheme,
@@ -34,6 +35,7 @@ export default function Options() {
 		setDisplay,
 		setLineNums,
 		setHighlight,
+		setScrollTo,
 	} = store()
 
 	const ext = path?.split('.').at(-1) ?? ''
@@ -81,27 +83,8 @@ export default function Options() {
 					label="Language"
 					icon={VscCode}
 					defaultValue={lang}
-					onChange={(e) => setLang(e.target.value)}
+					onChange={debounce((e) => setLang(e.target.value))}
 					placeholder={ext}
-				/>
-
-				<Checkbox
-					label={`${lineNums ? 'Hide' : 'Show'} line numbers`}
-					onIcon={VscListOrdered}
-					offIcon={VscListSelection}
-					defaultChecked={lineNums}
-					reverseChecked
-					onChange={(e) => setLineNums(e.target.checked)}
-				/>
-
-				<Input
-					label="Highlight"
-					title="Lines to highlight"
-					icon={VscPaintcan}
-					defaultValue={highlight}
-					onChange={(e) => setHighlight(e.target.value)}
-					pattern="((\d+|\d+-\d+),)*(\d+|\d+-\d+)"
-					placeholder="lines (e.g. 5,14-19)"
 				/>
 
 				<Input
@@ -118,6 +101,34 @@ export default function Options() {
 						))}
 					</select>
 				</Input>
+
+				<Checkbox
+					label={`${lineNums ? 'Hide' : 'Show'} line numbers`}
+					onIcon={VscListOrdered}
+					offIcon={VscListSelection}
+					defaultChecked={lineNums}
+					reverseChecked
+					onChange={(e) => setLineNums(e.target.checked)}
+				/>
+
+				<Input
+					label="Highlight"
+					title="Lines to highlight"
+					icon={VscPaintcan}
+					defaultValue={highlight}
+					onChange={debounce((e) => setHighlight(e.target.value))}
+					pattern="((\d+|\d+-\d+),)*(\d+|\d+-\d+)"
+					placeholder="lines (e.g. 5,14-19)"
+				/>
+
+				{highlight && (
+					<Checkbox
+						className="anim-fade-to-r"
+						label="Scroll to highlighted line"
+						defaultChecked={scrollTo}
+						onChange={(e) => setScrollTo(e.target.checked)}
+					/>
+				)}
 			</div>
 		</fieldset>
 	)

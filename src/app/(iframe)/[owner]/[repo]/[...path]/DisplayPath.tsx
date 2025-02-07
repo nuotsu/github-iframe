@@ -17,7 +17,7 @@ export default function DisplayPath({
 	return (
 		<h1
 			className={cn(
-				'fixed right-3 bottom-0 font-mono text-[10px] *:opacity-40 *:transition-opacity',
+				'fixed right-0 bottom-0 z-1 rounded-tl px-2 font-mono text-[10px] backdrop-blur *:opacity-40 *:transition-opacity',
 				!theme?.includes('light') && 'text-white',
 			)}
 		>

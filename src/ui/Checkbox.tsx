@@ -1,12 +1,14 @@
 import { LiaToggleOnSolid, LiaToggleOffSolid } from 'react-icons/lia'
 import clsx from 'clsx'
 import type { IconType } from 'react-icons'
+import { cn } from '@/lib/utils'
 
 export default function Checkbox({
 	label,
 	reverseChecked,
 	onIcon: OnIcon = LiaToggleOnSolid,
 	offIcon: OffIcon = LiaToggleOffSolid,
+	className,
 	...props
 }: {
 	label: string
@@ -15,7 +17,7 @@ export default function Checkbox({
 	reverseChecked?: boolean
 } & React.ComponentProps<'input'>) {
 	return (
-		<label className="with-icon cursor-pointer">
+		<label className={cn('with-icon cursor-pointer', className)}>
 			<input className="peer" type="checkbox" hidden {...props} />
 
 			<OnIcon

@@ -23,22 +23,27 @@ export default async function Page({
 		display?: Display
 		lineNums?: string
 		L?: string
+		scrollTo?: string
 	}>
 }) {
 	const { owner, repo, path } = await params
-	const { theme, lang, display, lineNums, L } = await searchParams
+	const { theme, lang, display, lineNums, L, scrollTo } = await searchParams
 
 	const raw = await getRawContent({ owner, repo, path })
 
 	return (
 		<>
-			<ConvertHashToParam params={{ theme, display, lineNums }} />
+			<ConvertHashToParam params={{ theme, display, lineNums, scrollTo }} />
 
-			<Code raw={raw} path={path} options={{ theme, lang, lineNums, L }} />
+			<Code
+				raw={raw}
+				path={path}
+				options={{ theme, lang, lineNums, L, scrollTo }}
+			/>
 
 			<nav
 				className={cn(
-					'fixed top-1 right-2 flex text-lg *:p-1 *:opacity-25 *:transition-opacity [&>:hover]:opacity-100',
+					'fixed top-0 right-0 z-1 flex rounded-bl p-1 text-lg backdrop-blur *:p-1 *:opacity-25 *:transition-opacity [&>:hover]:opacity-100',
 					!theme?.includes('light') && 'text-white',
 				)}
 			>

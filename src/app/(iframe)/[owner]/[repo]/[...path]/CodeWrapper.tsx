@@ -18,7 +18,7 @@ export default function CodeWrapper({
 		) as HTMLElement
 
 		window.scrollTo({
-			top: target.offsetTop,
+			top: target?.offsetTop - 6, // top margin
 			behavior: 'smooth',
 		})
 	}, [ref, scrollTo])

@@ -1,3 +1,4 @@
+import setHighlights from '@/lib/octokit/setHighlights'
 import { cn } from '@/lib/utils'
 import type { Display } from '@/lib/store'
 
@@ -16,7 +17,9 @@ export default function DisplayPath({
 		L?: string
 	}
 }) {
-	const { theme, display } = options
+	const { theme, display, L } = options
+
+	const highlights = setHighlights(L)
 
 	return (
 		<h1
@@ -34,7 +37,9 @@ export default function DisplayPath({
 			{display === 'all' && <span>/</span>}
 
 			{(display === 'path' || display === 'all') && (
-				<Segment href={`${owner}/${repo}/blob/main/${path?.join('/')}`}>
+				<Segment
+					href={`${owner}/${repo}/blob/main/${path?.join('/')}${highlights}`}
+				>
 					{path?.join('/')}
 				</Segment>
 			)}

@@ -2,6 +2,7 @@
 
 import { getCode, getSrc, store } from '@/lib/store'
 import getHtmlUrl from '@/lib/octokit/getHtmlUrl'
+import setHighlights from '@/lib/octokit/setHighlights'
 import Link from 'next/link'
 import ClickToCopy from '@/ui/ClickToCopy'
 import { VscEye, VscGithub } from 'react-icons/vsc'
@@ -16,7 +17,7 @@ export default function Actions() {
 		<div className="flex flex-wrap justify-end gap-x-4 px-2 py-1 max-md:flex-col">
 			<a
 				className="with-icon view-file-source anim-fade-to-l [[href='#']]:hidden"
-				href={`${html_url}${highlight ? `#L${highlight}` : ''}`}
+				href={html_url + setHighlights(highlight)}
 				target="_blank"
 			>
 				<VscGithub />

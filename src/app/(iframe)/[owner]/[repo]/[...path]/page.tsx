@@ -1,4 +1,5 @@
 import { getRawContent } from '@/lib/octokit/utils'
+import setHighlights from '@/lib/octokit/setHighlights'
 import ConvertHashToParam from './ConvertHashToParam'
 import Code from './Code'
 import { VscGithub } from 'react-icons/vsc'
@@ -50,7 +51,7 @@ export default async function Page({
 				)}
 			>
 				<a
-					href={`https://github.com/${owner}/${repo}/blob/main/${path?.join('/')}`}
+					href={`https://github.com/${owner}/${repo}/blob/main/${path?.join('/')}${setHighlights(L)}`}
 					target="_blank"
 					title="View on GitHub"
 				>

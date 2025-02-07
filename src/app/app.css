@@ -71,6 +71,10 @@
 		padding: 0.2em 0;
 
 		@apply border-b border-neutral-300 group-hover:border-black/30 invalid:border-red-500! required:invalid:border-red-500! focus:border-current!;
+
+		label:hover & {
+			@apply border-neutral-400;
+		}
 	}
 
 	.with-icon {

@@ -65,8 +65,7 @@ export default async function Page({
 					owner={owner}
 					repo={repo}
 					path={path}
-					theme={theme}
-					display={display}
+					options={{ theme, display, L }}
 				/>
 			)}
 

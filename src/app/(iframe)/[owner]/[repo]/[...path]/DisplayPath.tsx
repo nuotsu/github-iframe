@@ -5,15 +5,19 @@ export default function DisplayPath({
 	owner,
 	repo,
 	path,
-	theme,
-	display,
+	options,
 }: {
 	owner: string
 	repo: string
 	path?: string[]
-	theme?: string
-	display?: Display
+	options: {
+		theme?: string
+		display?: Display
+		L?: string
+	}
 }) {
+	const { theme, display } = options
+
 	return (
 		<h1
 			className={cn(

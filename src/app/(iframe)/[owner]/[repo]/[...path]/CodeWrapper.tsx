@@ -13,9 +13,14 @@ export default function CodeWrapper({
 	useEffect(() => {
 		if (!ref.current || !scrollTo || typeof window === 'undefined') return
 
-		ref.current
-			.querySelector(`[data-line="${scrollTo}"]`)
-			?.scrollIntoView({ behavior: 'smooth' })
+		const target = ref.current.querySelector(
+			`[data-line="${scrollTo}"]`,
+		) as HTMLElement
+
+		window.scrollTo({
+			top: target.offsetTop,
+			behavior: 'smooth',
+		})
 	}, [ref, scrollTo])
 
 	return <article ref={ref} {...props} />

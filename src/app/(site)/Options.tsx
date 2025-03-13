@@ -39,33 +39,30 @@ export default function Options() {
     setLineNums,
     setHighlight,
     setScrollTo,
+    setToken, // New
+    setAccountType, // New
   } = store()
 
   const ext = path?.split('.').at(-1) ?? ''
 
   // State for private repo access
-  const [accountType, setAccountType] = useState<'users' | 'orgs'>('users')
-  const [token, setToken] = useState<string>('')
+  const [accountType, setLocalAccountType] = useState<'users' | 'orgs'>('users')
+  const [token, setLocalToken] = useState<string>('')
   const [showTokenInput, setShowTokenInput] = useState<boolean>(false)
   const [showToken, setShowToken] = useState<boolean>(false)
 
   // Split repo into owner and repoName
   const [owner, repoName] = repo ? repo.split('/') : ['', '']
 
-  // Debounced function to fetch private repo data
-  const fetchPrivateRepo = debounce((tokenValue: string) => {
-    if (tokenValue && owner && repoName) {
-      console.log('Fetching private repo with:', { owner, repoName, accountType, token: tokenValue })
-      // Future: Implement API call to fetch private repo data here
-    }
-  }, 500)
-
-  // Automatically fetch when token changes
+  // Sync local state with store
   useEffect(() => {
     if (showTokenInput && token) {
-      fetchPrivateRepo(token)
+      setToken(token)
+      setAccountType(accountType)
+    } else {
+      setToken('') // Clear token in store when hidden
     }
-  }, [token, showTokenInput, owner, repoName, accountType])
+  }, [token, showTokenInput, accountType, setToken, setAccountType])
 
   return (
     <fieldset className="border border-neutral-300 p-2">
@@ -74,7 +71,6 @@ export default function Options() {
       </legend>
 
       <div className="grid gap-x-4 gap-y-2 md:grid-cols-2">
-        {/* Existing Repo Input */}
         <Input
           title="Repo owner/repo"
           icon={VscRepo}
@@ -93,7 +89,6 @@ export default function Options() {
           required
         />
 
-        {/* Private Repo Options */}
         <div className="col-span-2 space-y-2">
           <div className="flex items-center gap-4">
             <label className="flex items-center text-sm text-neutral-500">
@@ -102,7 +97,7 @@ export default function Options() {
                 name="accountType"
                 value="users"
                 checked={accountType === 'users'}
-                onChange={() => setAccountType('users')}
+                onChange={() => setLocalAccountType('users')}
                 className="mr-1"
               />
               User
@@ -113,7 +108,7 @@ export default function Options() {
                 name="accountType"
                 value="orgs"
                 checked={accountType === 'orgs'}
-                onChange={() => setAccountType('orgs')}
+                onChange={() => setLocalAccountType('orgs')}
                 className="mr-1"
               />
               Org
@@ -135,7 +130,7 @@ export default function Options() {
                 title="Personal Access Token"
                 icon={showToken ? VscEye : VscEyeClosed}
                 value={token}
-                onChange={(e) => setToken(e.target.value)} // No debounce here, handled by useEffect
+                onChange={(e) => setLocalToken(e.target.value)}
                 type={showToken ? 'text' : 'password'}
                 placeholder="ghp_xxxxxxxxxxxxxxxx"
               />
@@ -160,7 +155,6 @@ export default function Options() {
           )}
         </div>
 
-        {/* Remaining Existing Inputs */}
         <Input icon={VscSymbolColor}>
           <select
             title="Theme"

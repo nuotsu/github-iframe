@@ -40,7 +40,6 @@ export const store = create<{
 	highlight: undefined,
 	scrollTo: false,
   token: undefined, // New
-  accountType: 'users', // New
 
 	setRepo: (repo: string) => set({ repo }),
 	setPath: (path: string) => set({ path }),
@@ -51,12 +50,11 @@ export const store = create<{
 	setHighlight: (highlight?: string) => set({ highlight }),
 	setScrollTo: (scrollTo?: boolean) => set({ scrollTo }),
   setToken: (token?: string) => set({ token }), // New
-  setAccountType: (accountType?: 'users' | 'orgs') => set({ accountType }), // New
 }))
 
 export function getSrc() {
 	return store(
-		({ repo, path, theme, lang, display, lineNums, highlight, scrollTo, token, accountType }) => {
+		({ repo, path, theme, lang, display, lineNums, highlight, scrollTo, token }) => {
 			const domain = dev ? 'http://localhost:3000' : DOMAIN
 			const url = new URL(
 				`${domain}/${repo}/${path}${highlight ? `#L${highlight}` : ''}`,
@@ -68,7 +66,6 @@ export function getSrc() {
 			if (lineNums) url.searchParams.set('lineNums', '0')
 			if (highlight && scrollTo) url.searchParams.set('scrollTo', '1')
       if (token) url.searchParams.set('token', token) // New: Add token to URL
-      if (accountType) url.searchParams.set('accountType', accountType) // New: Add accountType to URL
 
 			return url.toString()
 		},

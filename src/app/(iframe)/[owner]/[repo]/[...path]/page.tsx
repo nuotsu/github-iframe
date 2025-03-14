@@ -1,4 +1,3 @@
-import { getRawContent } from '@/lib/octokit/utils'
 import setHighlights from '@/lib/octokit/setHighlights'
 import ConvertHashToParam from './ConvertHashToParam'
 import Code from './Code'
@@ -8,6 +7,7 @@ import DisplayPath from './DisplayPath'
 import BgColor from './BgColor'
 import { cn } from '@/lib/utils'
 import type { Display } from '@/lib/store'
+import { fetchGithubFileContent } from '@/lib/octokit/github';
 
 export default async function Page({
 	params,
@@ -17,7 +17,7 @@ export default async function Page({
 		owner: string
 		repo: string
 		path?: string[]
-	}>
+	}>;
 	searchParams: Promise<{
 		theme?: string
 		lang?: string
@@ -25,12 +25,19 @@ export default async function Page({
 		lineNums?: string
 		L?: string
 		scrollTo?: string
-	}>
+		token?: string
+	}>;
 }) {
 	const { owner, repo, path } = await params
-	const { theme, lang, display, lineNums, L, scrollTo } = await searchParams
+	const { theme, lang, display, lineNums, L, scrollTo, token} = await searchParams
 
-	const raw = await getRawContent({ owner, repo, path })
+  let raw: string;
+  try {
+    raw = await fetchGithubFileContent(owner, repo, path?.join('/') || '', token);
+  } catch (error) {
+    console.error('Error fetching content:', error);
+    raw = error instanceof Error ? error.message : 'Error loading the code...Try again';
+  }
 
 	return (
 		<>

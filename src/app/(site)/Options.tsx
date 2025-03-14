@@ -40,29 +40,21 @@ export default function Options() {
     setHighlight,
     setScrollTo,
     setToken, // New
-    setAccountType, // New
   } = store()
 
   const ext = path?.split('.').at(-1) ?? ''
 
-  // State for private repo access
-  const [accountType, setLocalAccountType] = useState<'users' | 'orgs'>('users')
   const [token, setLocalToken] = useState<string>('')
   const [showTokenInput, setShowTokenInput] = useState<boolean>(false)
   const [showToken, setShowToken] = useState<boolean>(false)
 
-  // Split repo into owner and repoName
-  const [owner, repoName] = repo ? repo.split('/') : ['', '']
-
-  // Sync local state with store
   useEffect(() => {
     if (showTokenInput && token) {
       setToken(token)
-      setAccountType(accountType)
     } else {
       setToken('') // Clear token in store when hidden
     }
-  }, [token, showTokenInput, accountType, setToken, setAccountType])
+  }, [token, showTokenInput, setToken])
 
   return (
     <fieldset className="border border-neutral-300 p-2">
@@ -90,31 +82,6 @@ export default function Options() {
         />
 
         <div className="col-span-2 space-y-2">
-          <div className="flex items-center gap-4">
-            <label className="flex items-center text-sm text-neutral-500">
-              <input
-                type="radio"
-                name="accountType"
-                value="users"
-                checked={accountType === 'users'}
-                onChange={() => setLocalAccountType('users')}
-                className="mr-1"
-              />
-              User
-            </label>
-            <label className="flex items-center text-sm text-neutral-500">
-              <input
-                type="radio"
-                name="accountType"
-                value="orgs"
-                checked={accountType === 'orgs'}
-                onChange={() => setLocalAccountType('orgs')}
-                className="mr-1"
-              />
-              Org
-            </label>
-          </div>
-
           <button
             type="button"
             onClick={() => setShowTokenInput(!showTokenInput)}

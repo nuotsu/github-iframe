@@ -2,7 +2,7 @@ import { bundledThemes } from 'shiki'
 import { create } from 'zustand'
 import { dev } from '@/lib/env'
 
-export const DOMAIN = 'https://github-iframe.vercel.app'
+export const DOMAIN = 'https://github-iframe-kappa.vercel.app'
 
 export const DISPLAYS = ['none', 'repo', 'path', 'all'] as const
 export const DEFAULT_THEME: Theme = 'dark-plus'

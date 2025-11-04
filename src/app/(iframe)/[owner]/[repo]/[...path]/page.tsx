@@ -7,7 +7,7 @@ import DisplayPath from './DisplayPath'
 import BgColor from './BgColor'
 import { cn } from '@/lib/utils'
 import type { Display } from '@/lib/store'
-import { fetchGithubFileContent, getDefaultBranchForRepo } from '@/lib/octokit/github';
+import { fetchGithubFileContent } from '@/lib/octokit/github';
 
 export default async function Page({
 	params,
@@ -32,20 +32,11 @@ export default async function Page({
 	const { theme, lang, display, lineNums, L, scrollTo, token} = await searchParams
 
   let raw: string;
-  let defaultBranch = 'main';
   try {
-    // Get default branch for GitHub link
-    defaultBranch = await getDefaultBranchForRepo(owner, repo, token);
     raw = await fetchGithubFileContent(owner, repo, path?.join('/') || '', token);
   } catch (error) {
     console.error('Error fetching content:', error);
     raw = error instanceof Error ? error.message : 'Error loading the code...Try again';
-    // Try to get default branch even if file fetch failed
-    try {
-      defaultBranch = await getDefaultBranchForRepo(owner, repo, token);
-    } catch {
-      // Keep default 'main' if branch fetch also fails
-    }
   }
 
 	return (
@@ -67,7 +58,7 @@ export default async function Page({
 				)}
 			>
 				<a
-					href={`https://github.com/${owner}/${repo}/blob/${defaultBranch}/${path?.join('/')}${setHighlights(L)}`}
+					href={`https://github.com/${owner}/${repo}/blob/main/${path?.join('/')}${setHighlights(L)}`}
 					target="_blank"
 					title="View on GitHub"
 				>

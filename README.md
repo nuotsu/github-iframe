@@ -5,7 +5,9 @@ Display live GitHub code in an iframe.
 > [Demo](https://github-iframe-kappa.vercel.app) | [Blog post](https://sanitypress.dev/blog/introducing-github-iframe)
 
 ```html
-<iframe src="https://github-iframe-kappa.vercel.app/{owner}/{repo}/{path}"></iframe>
+<iframe
+	src="https://github-iframe-kappa.vercel.app/{owner}/{repo}/{path}"
+></iframe>
 
 <!-- e.g. -->
 <iframe

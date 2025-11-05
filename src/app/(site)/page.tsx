@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { store, getCode } from '@/lib/store'
 import Options from './Options'
 import Actions from './Actions'
@@ -11,6 +12,9 @@ export default function Home() {
 	const code = getCode()
 
 	const isValid = repo?.includes('/') && path
+
+	const [iframeError, setIframeError] = useState<string | null>(null)
+
 
 	return (
 		<section className="group/root space-y-6">
@@ -28,16 +32,20 @@ export default function Home() {
 
 			{isValid && (
 				<div className="group grid h-[400px] bg-neutral-50 transition-transform *:col-span-full *:row-span-full group-has-[.fullscreen-preview:hover]/root:scale-[1.02]">
-					<p className="with-icon m-auto">
-						<VscLoading className="animate-spin" />
-						Loading...
-					</p>
-
-					{isValid && (
+					{!iframeError ? (
+						<>
+						<p className="with-icon m-auto">
+							<VscLoading className="animate-spin" />
+							Loading...
+						</p>
 						<div
 							className="relative"
 							dangerouslySetInnerHTML={{ __html: code }}
+							onError={() => setIframeError('Error loading the code...Try again')}
 						/>
+					</>
+					) : (
+						<p className="text-red-500 text-center m-auto">{iframeError}</p>
 					)}
 				</div>
 			)}

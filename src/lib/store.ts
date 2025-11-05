@@ -2,7 +2,7 @@ import { bundledThemes } from 'shiki'
 import { create } from 'zustand'
 import { dev } from '@/lib/env'
 
-export const DOMAIN = 'https://github-iframe.vercel.app'
+export const DOMAIN = 'https://github-iframe-kappa.vercel.app'
 
 export const DISPLAYS = ['none', 'repo', 'path', 'all'] as const
 export const DEFAULT_THEME: Theme = 'dark-plus'
@@ -19,6 +19,7 @@ export const store = create<{
 	lineNums?: boolean
 	highlight?: string
 	scrollTo?: boolean
+	token?: string // New
 
 	setRepo: (repo: string) => void
 	setPath: (path: string) => void
@@ -28,6 +29,7 @@ export const store = create<{
 	setLineNums: (lineNums?: boolean) => void
 	setHighlight: (highlight?: string) => void
 	setScrollTo: (scrollTo?: boolean) => void
+	setToken: (token?: string) => void // New
 }>((set) => ({
 	repo: 'nuotsu/github-iframe',
 	path: 'src/lib/store.ts',
@@ -37,6 +39,7 @@ export const store = create<{
 	lineNums: false,
 	highlight: undefined,
 	scrollTo: false,
+	token: undefined, // New
 
 	setRepo: (repo: string) => set({ repo }),
 	setPath: (path: string) => set({ path }),
@@ -46,11 +49,22 @@ export const store = create<{
 	setLineNums: (lineNums?: boolean) => set({ lineNums }),
 	setHighlight: (highlight?: string) => set({ highlight }),
 	setScrollTo: (scrollTo?: boolean) => set({ scrollTo }),
+	setToken: (token?: string) => set({ token }), // New
 }))
 
 export function getSrc() {
 	return store(
-		({ repo, path, theme, lang, display, lineNums, highlight, scrollTo }) => {
+		({
+			repo,
+			path,
+			theme,
+			lang,
+			display,
+			lineNums,
+			highlight,
+			scrollTo,
+			token,
+		}) => {
 			const domain = dev ? 'http://localhost:3000' : DOMAIN
 			const url = new URL(
 				`${domain}/${repo}/${path}${highlight ? `#L${highlight}` : ''}`,
@@ -61,6 +75,7 @@ export function getSrc() {
 			if (display !== 'none') url.searchParams.set('display', display)
 			if (lineNums) url.searchParams.set('lineNums', '0')
 			if (highlight && scrollTo) url.searchParams.set('scrollTo', '1')
+			if (token) url.searchParams.set('token', token) // New: Add token to URL
 
 			return url.toString()
 		},
